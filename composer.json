@@ -1,0 +1,35 @@
+{
+  "name": "boooklet/graphics-tools",
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "boooklet/graphics-tools",
+        "type": "package",
+        "source": {
+          "url": "git@github.com/boooklet/graphics-tools.git",
+          "type": "git",
+          "reference": "master"
+        },
+        "version": "1.0"
+      }
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/boooklet/tester.git"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/boooklet/utils.git"
+    }
+  ],
+  "require": {
+    "boooklet/tester": "dev-master",
+    "boooklet/utils": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "": "src/"
+    }
+  }
+}

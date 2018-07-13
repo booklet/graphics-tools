@@ -1,0 +1,63 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "c522a3a826380045ccdb895f60fb88b8",
+    "content-hash": "0ce664366e657b055a76609d4b85a333",
+    "packages": [
+        {
+            "name": "boooklet/tester",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/boooklet/tester.git",
+                "reference": "3356cae98a13e4738b000835ad00f3bea2695c25"
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src",
+                    "src/concerns"
+                ]
+            },
+            "description": "Test library",
+            "time": "2018-07-13 10:28:25"
+        },
+        {
+            "name": "boooklet/utils",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/boooklet/utils.git",
+                "reference": "9a23ad26a5d643e003459fc3238440ef5ec02384"
+            },
+            "require": {
+                "boooklet/tester": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "": "src/",
+                    "Utils\\": "src/utils"
+                }
+            },
+            "time": "2018-07-13 10:31:18"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "boooklet/tester": 20,
+        "boooklet/utils": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
