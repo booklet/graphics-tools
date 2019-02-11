@@ -1,5 +1,5 @@
 <?php
-class IdentifyMeasurementFileTest extends TesterCase
+class IdentifyMeasurementFileTest extends \CustomPHPUnitTestCase
 {
     public $skip_database_clear_before = ['all'];
 
@@ -7,32 +7,32 @@ class IdentifyMeasurementFileTest extends TesterCase
     {
         $measurement = new IdentifyMeasurementFile('tests/fixtures/files/30x50.pdf');
 
-        Assert::expect($measurement->getWidth())->to_equal(96.0);
-        Assert::expect($measurement->getHeight())->to_equal(153.0);
+        $this->assertEquals($measurement->getWidth(), 96.0);
+        $this->assertEquals($measurement->getHeight(), 153.0);
 
         $measurement = new IdentifyMeasurementFile('tests/fixtures/files/client-test-file-07.eps');
 
-        Assert::expect($measurement->getWidth())->to_equal(73.0);
-        Assert::expect($measurement->getHeight())->to_equal(83.0);
+        $this->assertEquals($measurement->getWidth(), 73.0);
+        $this->assertEquals($measurement->getHeight(), 83.0);
 
         $measurement = new IdentifyMeasurementFile('tests/fixtures/files/cloud-upload.svg');
 
-        Assert::expect($measurement->getWidth())->to_equal(32.0);
-        Assert::expect($measurement->getHeight())->to_equal(32.0);
+        $this->assertEquals($measurement->getWidth(), 32.0);
+        $this->assertEquals($measurement->getHeight(), 32.0);
 
         $measurement = new IdentifyMeasurementFile('tests/fixtures/files/client-test-file-06a.ai');
 
-        Assert::expect($measurement->getWidth())->to_equal(181.0);
-        Assert::expect($measurement->getHeight())->to_equal(125.0);
+        $this->assertEquals($measurement->getWidth(), 181.0);
+        $this->assertEquals($measurement->getHeight(), 125.0);
 
         $measurement = new IdentifyMeasurementFile('tests/fixtures/files/animal.jpg');
 
-        Assert::expect($measurement->getWidth())->to_equal(640.0);
-        Assert::expect($measurement->getHeight())->to_equal(480.0);
+        $this->assertEquals($measurement->getWidth(), 640.0);
+        $this->assertEquals($measurement->getHeight(), 480.0);
 
         $measurement = new IdentifyMeasurementFile('tests/fixtures/files/animal_22x33-444x5mm66X77_88.8x99.9.jpg');
 
-        Assert::expect($measurement->getWidth())->to_equal(640.0);
-        Assert::expect($measurement->getHeight())->to_equal(480.0);
+        $this->assertEquals($measurement->getWidth(), 640.0);
+        $this->assertEquals($measurement->getHeight(), 480.0);
     }
 }

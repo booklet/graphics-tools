@@ -5,7 +5,7 @@
 // Crop Box (Pole kadrowania) cała praca ze spadami i znacznikami drukarskimi.
 // Art Box (Pole grafiki) nie potrzebujemy
 
-class PdfFileAnalyzerTest extends \TesterCase
+class PdfFileAnalyzerTest extends \CustomPHPUnitTestCase
 {
     public $skip_database_clear_before = ['all'];
 
@@ -102,6 +102,6 @@ class PdfFileAnalyzerTest extends \TesterCase
             ],
         ];
 
-        Assert::expect($file_analyze)->to_equal($expect);
+        $this->assertEquals($file_analyze, $expect);
     }
 }

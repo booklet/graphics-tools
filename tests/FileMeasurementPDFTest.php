@@ -1,5 +1,5 @@
 <?php
-class FileMeasurementPDFTest extends TesterCase
+class FileMeasurementPDFTest extends \CustomPHPUnitTestCase
 {
     public $skip_database_clear_before = ['all'];
 
@@ -7,80 +7,80 @@ class FileMeasurementPDFTest extends TesterCase
     {
         $pdf_tools = new FileMeasurementPDF('tests/fixtures/files/30x50.pdf');
 
-        Assert::expect($pdf_tools->pagesCount())->to_equal(3);
+        $this->assertEquals($pdf_tools->pagesCount(), 3);
 
         $pdf_tools = new FileMeasurementPDF('tests/fixtures/files/one-page-file.pdf');
 
-        Assert::expect($pdf_tools->pagesCount())->to_equal(1);
+        $this->assertEquals($pdf_tools->pagesCount(), 1);
 
         $pdf_tools = new FileMeasurementPDF('tests/fixtures/files/client-test-file-01.pdf');
 
-        Assert::expect($pdf_tools->pagesCount())->to_equal(2);
+        $this->assertEquals($pdf_tools->pagesCount(), 2);
     }
 
     public function testWidthInPt()
     {
         $pdf_tools = new FileMeasurementPDF('tests/fixtures/files/difrent-pages-sizes.pdf');
 
-        Assert::expect($pdf_tools->widthInPt())->to_equal(255.12);
-        Assert::expect($pdf_tools->widthInPt(['page' => 2]))->to_equal(340.16);
-        Assert::expect($pdf_tools->widthInPt(['page' => 3]))->to_equal(765.35);
+        $this->assertEquals($pdf_tools->widthInPt(), 255.12);
+        $this->assertEquals($pdf_tools->widthInPt(['page' => 2]), 340.16);
+        $this->assertEquals($pdf_tools->widthInPt(['page' => 3]), 765.35);
     }
 
     public function testHeightInPt()
     {
         $pdf_tools = new FileMeasurementPDF('tests/fixtures/files/difrent-pages-sizes.pdf');
 
-        Assert::expect($pdf_tools->heightInPt())->to_equal(198.42);
-        Assert::expect($pdf_tools->heightInPt(['page' => 2]))->to_equal(538.58);
-        Assert::expect($pdf_tools->heightInPt(['page' => 3]))->to_equal(623.62);
+        $this->assertEquals($pdf_tools->heightInPt(), 198.42);
+        $this->assertEquals($pdf_tools->heightInPt(['page' => 2]), 538.58);
+        $this->assertEquals($pdf_tools->heightInPt(['page' => 3]), 623.62);
     }
 
     public function testSizesWithTrimbox()
     {
         $pdf_tools = new FileMeasurementPDF('tests/fixtures/files/55x55_bez_spadu.pdf');
-        Assert::expect($pdf_tools->heightInPt())->to_equal(155.91);
+        $this->assertEquals($pdf_tools->heightInPt(), 155.91);
 
         $pdf_tools = new FileMeasurementPDF('tests/fixtures/files/59x59.pdf');
-        Assert::expect($pdf_tools->heightInPt())->to_equal(167.24);
+        $this->assertEquals($pdf_tools->heightInPt(), 167.24);
 
         $pdf_tools = new FileMeasurementPDF('tests/fixtures/files/55x55_spady.pdf');
-        Assert::expect($pdf_tools->heightInPt())->to_equal(167.25);
+        $this->assertEquals($pdf_tools->heightInPt(), 167.25);
     }
 
     public function testWidthInMM()
     {
         $pdf_tools = new FileMeasurementPDF('tests/fixtures/files/difrent-pages-sizes.pdf');
 
-        Assert::expect($pdf_tools->widthInMm())->to_equal(90.0);
-        Assert::expect($pdf_tools->widthInMm(['page' => 2]))->to_equal(120.0);
-        Assert::expect($pdf_tools->widthInMm(['page' => 3]))->to_equal(270.0);
+        $this->assertEquals($pdf_tools->widthInMm(), 90.0);
+        $this->assertEquals($pdf_tools->widthInMm(['page' => 2]), 120.0);
+        $this->assertEquals($pdf_tools->widthInMm(['page' => 3]), 270.0);
     }
 
     public function testHeightInMM()
     {
         $pdf_tools = new FileMeasurementPDF('tests/fixtures/files/difrent-pages-sizes.pdf');
 
-        Assert::expect($pdf_tools->heightInMm())->to_equal(70.0);
-        Assert::expect($pdf_tools->heightInMm(['page' => 2]))->to_equal(190.0);
-        Assert::expect($pdf_tools->heightInMm(['page' => 3]))->to_equal(220.0);
+        $this->assertEquals($pdf_tools->heightInMm(), 70.0);
+        $this->assertEquals($pdf_tools->heightInMm(['page' => 2]), 190.0);
+        $this->assertEquals($pdf_tools->heightInMm(['page' => 3]), 220.0);
     }
 
     public function testWidthInPx()
     {
         $pdf_tools = new FileMeasurementPDF('tests/fixtures/files/difrent-pages-sizes.pdf');
 
-        Assert::expect($pdf_tools->widthInPx())->to_equal(1063);
-        Assert::expect($pdf_tools->widthInPx(['page' => 2]))->to_equal(1417);
-        Assert::expect($pdf_tools->widthInPx(['page' => 3]))->to_equal(3189);
+        $this->assertEquals($pdf_tools->widthInPx(), 1063);
+        $this->assertEquals($pdf_tools->widthInPx(['page' => 2]), 1417);
+        $this->assertEquals($pdf_tools->widthInPx(['page' => 3]), 3189);
     }
 
     public function testHeightInPx()
     {
         $pdf_tools = new FileMeasurementPDF('tests/fixtures/files/difrent-pages-sizes.pdf');
 
-        Assert::expect($pdf_tools->heightInPx())->to_equal(827);
-        Assert::expect($pdf_tools->heightInPx(['page' => 2]))->to_equal(2244);
-        Assert::expect($pdf_tools->heightInPx(['page' => 3]))->to_equal(2598);
+        $this->assertEquals($pdf_tools->heightInPx(), 827);
+        $this->assertEquals($pdf_tools->heightInPx(['page' => 2]), 2244);
+        $this->assertEquals($pdf_tools->heightInPx(['page' => 3]), 2598);
     }
 }

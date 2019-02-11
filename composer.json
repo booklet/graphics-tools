@@ -16,16 +16,14 @@
     },
     {
       "type": "git",
-      "url": "https://github.com/boooklet/tester.git"
-    },
-    {
-      "type": "git",
       "url": "https://github.com/boooklet/utils.git"
     }
   ],
   "require": {
-    "boooklet/tester": "dev-master",
     "boooklet/utils": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6"
   },
   "autoload": {
     "psr-4": {

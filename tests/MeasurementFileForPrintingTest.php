@@ -1,5 +1,5 @@
 <?php
-class MeasurementFileForPrintingTest extends TesterCase
+class MeasurementFileForPrintingTest extends \CustomPHPUnitTestCase
 {
     public $skip_database_clear_before = ['all'];
 
@@ -7,12 +7,12 @@ class MeasurementFileForPrintingTest extends TesterCase
     {
         $file_measurement = new MeasurementFileForPrinting($path);
 
-        Assert::expect($file_measurement->getWidthInPx())->to_equal($sizes['width_px']);
-        Assert::expect($file_measurement->getHeightInPx())->to_equal($sizes['height_px']);
-        Assert::expect($file_measurement->getWidthInPt())->to_equal($sizes['width_pt']);
-        Assert::expect($file_measurement->getHeightInPt())->to_equal($sizes['height_pt']);
-        Assert::expect($file_measurement->getWidthInMm())->to_equal($sizes['width_mm']);
-        Assert::expect($file_measurement->getHeightInMm())->to_equal($sizes['height_mm']);
+        $this->assertEquals($file_measurement->getWidthInPx(), $sizes['width_px']);
+        $this->assertEquals($file_measurement->getHeightInPx(), $sizes['height_px']);
+        $this->assertEquals($file_measurement->getWidthInPt(), $sizes['width_pt']);
+        $this->assertEquals($file_measurement->getHeightInPt(), $sizes['height_pt']);
+        $this->assertEquals($file_measurement->getWidthInMm(), $sizes['width_mm']);
+        $this->assertEquals($file_measurement->getHeightInMm(), $sizes['height_mm']);
     }
 
     public function testMeasurementJpg()

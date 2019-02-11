@@ -1,5 +1,5 @@
 <?php
-class PDFToolsTest extends TesterCase
+class PDFToolsTest extends \CustomPHPUnitTestCase
 {
     public $skip_database_clear_before = ['all'];
 
@@ -10,13 +10,13 @@ class PDFToolsTest extends TesterCase
 
         for ($i = 1; $i < 13; ++$i) {
             $file_path = 'tests/temp/12-pages_page' . sprintf('%02d', $i) . '.pdf';
-            Assert::expect(file_exists($file_path))->to_equal(true);
+            $this->assertEquals(file_exists($file_path), true);
             unlink($file_path);
         }
 
-        Assert::expect(count($paths))->to_equal(12);
-        Assert::expect($paths[0])->to_equal('tests/temp/12-pages_page01.pdf');
-        Assert::expect($paths[11])->to_equal('tests/temp/12-pages_page12.pdf');
+        $this->assertEquals(count($paths), 12);
+        $this->assertEquals($paths[0], 'tests/temp/12-pages_page01.pdf');
+        $this->assertEquals($paths[11], 'tests/temp/12-pages_page12.pdf');
     }
 
     public function testSplitPdfOnePage()
@@ -25,11 +25,11 @@ class PDFToolsTest extends TesterCase
         $paths = $pdf_tools->splitPdfToPath('tests/temp');
 
         $file_path = 'tests/temp/client-test-file-09.pdf';
-        Assert::expect(file_exists($file_path))->to_equal(true);
+        $this->assertEquals(file_exists($file_path), true);
         unlink($file_path);
 
-        Assert::expect(count($paths))->to_equal(1);
-        Assert::expect($paths[0])->to_equal('tests/temp/client-test-file-09.pdf');
+        $this->assertEquals(count($paths), 1);
+        $this->assertEquals($paths[0], 'tests/temp/client-test-file-09.pdf');
     }
 
     public function testSplitPdfMultiplePageWithCustomFileName()
@@ -39,13 +39,13 @@ class PDFToolsTest extends TesterCase
 
         for ($i = 1; $i < 13; ++$i) {
             $file_path = 'tests/temp/prefix-nazwy-pliku-ze-spacjami_page' . sprintf('%02d', $i) . '.pdf';
-            Assert::expect(file_exists($file_path))->to_equal(true);
+            $this->assertEquals(file_exists($file_path), true);
             unlink($file_path);
         }
 
-        Assert::expect(count($paths))->to_equal(12);
-        Assert::expect($paths[0])->to_equal('tests/temp/prefix-nazwy-pliku-ze-spacjami_page01.pdf');
-        Assert::expect($paths[11])->to_equal('tests/temp/prefix-nazwy-pliku-ze-spacjami_page12.pdf');
+        $this->assertEquals(count($paths), 12);
+        $this->assertEquals($paths[0], 'tests/temp/prefix-nazwy-pliku-ze-spacjami_page01.pdf');
+        $this->assertEquals($paths[11], 'tests/temp/prefix-nazwy-pliku-ze-spacjami_page12.pdf');
     }
 
     public function testConvertToJpg()
@@ -54,13 +54,13 @@ class PDFToolsTest extends TesterCase
         $jpg_path = 'tests/temp/convert_to_jpg.jpg';
         $pdf_tools->convertToJpg($jpg_path);
 
-        Assert::expect(file_exists($jpg_path))->to_equal(true);
+        $this->assertEquals(file_exists($jpg_path), true);
 
         $image = new Imagick($jpg_path);
         $d = $image->getImageGeometry();
 
-        Assert::expect($d['width'])->to_equal(1146);
-        Assert::expect($d['height'])->to_equal(319);
+        $this->assertEquals($d['width'], 1146);
+        $this->assertEquals($d['height'], 319);
 
         unlink($jpg_path);
     }
