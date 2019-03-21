@@ -79,6 +79,8 @@ class PDFTools
     public function convertToJpg(string $target_path, array $params = [])
     {
         $page = $params['page'] ?? 1;
+        $quality = $params['jpg_quality'] ?? 100;
+        $dpi = $params['jpg_dpi'] ?? 300;
         $measurement = new FileMeasurementPDF($this->file_path);
         $width_in_px = $measurement->widthInPx(['page' => $page]);
         $height_in_px = $measurement->heightInPx(['page' => $page]);
@@ -89,9 +91,10 @@ class PDFTools
                      ' -o ' . $target_path .
                      ' -dFirstPage=' . $page .
                      ' -dLastPage=' . $page .
-                     ' -r300' .
+                     ' -r' . $dpi .
                      ' -dTextAlphaBits=4' .
-                     ' -dJPEGQ=100 -g' . ($width_in_px * 2) . 'x' . ($height_in_px * 2) .
+                     ' -dJPEGQ=' . $quality .
+                     ' -g' . ($width_in_px * 2) . 'x' . ($height_in_px * 2) .
                      ' -dPDFFitPage ' . $this->file_path .
                      ' 2>/dev/null');
 
