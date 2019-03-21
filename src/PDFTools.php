@@ -81,23 +81,33 @@ class PDFTools
         $page = $params['page'] ?? 1;
         $quality = $params['jpg_quality'] ?? 100;
         $dpi = $params['jpg_dpi'] ?? 300;
+        $subsample_antialiasing = $params['subsample_antialiasing'] ?? true;
+
         $measurement = new FileMeasurementPDF($this->file_path);
         $width_in_px = $measurement->widthInPx(['page' => $page]);
         $height_in_px = $measurement->heightInPx(['page' => $page]);
         $file_name = FilesUntils::getFileBasename($this->file_path);
 
-        // 2 x bigger to fix not working antyaliasing in ghostscript
-        shell_exec('gs -sDEVICE=jpeg ' .
-                     ' -o ' . $target_path .
-                     ' -dFirstPage=' . $page .
-                     ' -dLastPage=' . $page .
-                     ' -r' . $dpi .
-                     ' -dTextAlphaBits=4' .
-                     ' -dJPEGQ=' . $quality .
-                     ' -g' . ($width_in_px * 2) . 'x' . ($height_in_px * 2) .
-                     ' -dPDFFitPage ' . $this->file_path .
-                     ' 2>/dev/null');
+        $size_multiplier = 1;
+        if ($subsample_antialiasing) {
+            // 2 x bigger to fix not working antyaliasing in ghostscript
+            $size_multiplier = 2;
+        }
 
-        ImagickUntils::resize($target_path, $target_path, $width_in_px, $height_in_px);
+        shell_exec('gs -sDEVICE=jpeg ' .
+            ' -o ' . $target_path .
+            ' -dFirstPage=' . $page .
+            ' -dLastPage=' . $page .
+            ' -r' . $dpi .
+            ' -dTextAlphaBits=4' . // subsample antialiasing
+            ' -dGraphicsAlphaBits=4' . // subsample antialiasing
+            ' -dJPEGQ=' . $quality .
+            ' -g' . ($width_in_px * $size_multiplier) . 'x' . ($height_in_px * $size_multiplier) .
+            ' -dPDFFitPage ' . $this->file_path .
+            ' 2>/dev/null');
+
+        if ($subsample_antialiasing) {
+            ImagickUntils::resize($target_path, $target_path, $width_in_px, $height_in_px);
+        }
     }
 }
