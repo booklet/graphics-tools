@@ -75,7 +75,11 @@ class FileMeasurementPDF
         // but when we run this in system (api, fotobum) we need full path
         $toolbin_pdf_info_path = 'lib/ghost_script/toolbin_pdf_info.ps';
         if (!file_exists($toolbin_pdf_info_path)) {
-            $toolbin_pdf_info_path = 'vendor/boooklet/framework/lib/ghost_script/toolbin_pdf_info.ps';
+            $toolbin_pdf_info_path = 'vendor/boooklet/graphics-tools/lib/ghost_script/toolbin_pdf_info.ps';
+        }
+
+        if (!file_exists($toolbin_pdf_info_path)) {
+            throw new Exception('Not found toolbin_pdf_info.ps file (require for get pdf size)');
         }
 
         $pdf_info_data = shell_exec('gs -dNODISPLAY -q -sFile="' . $this->file_path . '"' .
