@@ -71,13 +71,7 @@ class FileMeasurementPDF
 
     public function setPagesSizes()
     {
-        // When run tests in framework we need this path
-        // but when we run this in system (api, fotobum) we need full path
-        $root = defined('ROOT_DIR') ? ROOT_DIR : '';
-        $toolbin_pdf_info_path = $root . 'lib/ghost_script/toolbin_pdf_info.ps';
-        if (!file_exists($toolbin_pdf_info_path)) {
-            $toolbin_pdf_info_path = $root . 'vendor/boooklet/graphics-tools/lib/ghost_script/toolbin_pdf_info.ps';
-        }
+        $toolbin_pdf_info_path = __DIR__ . '/../lib/ghost_script/toolbin_pdf_info.ps';
 
         if (!file_exists($toolbin_pdf_info_path)) {
             throw new Exception('Not found toolbin_pdf_info.ps file (require for get pdf size)');
