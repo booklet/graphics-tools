@@ -1,13 +1,13 @@
 {
-  "name": "boooklet/graphics-tools",
+  "name": "booklet/graphics-tools",
   "repositories": [
     {
       "type": "package",
       "package": {
-        "name": "boooklet/graphics-tools",
+        "name": "booklet/graphics-tools",
         "type": "package",
         "source": {
-          "url": "git@github.com/boooklet/graphics-tools.git",
+          "url": "git@github.com/booklet/graphics-tools.git",
           "type": "git",
           "reference": "master"
         },
@@ -16,11 +16,11 @@
     },
     {
       "type": "git",
-      "url": "https://github.com/boooklet/utils.git"
+      "url": "https://github.com/booklet/utils.git"
     }
   ],
   "require": {
-    "boooklet/utils": "dev-master"
+    "booklet/utils": "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": "^6"
