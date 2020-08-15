@@ -22,6 +22,8 @@ class FileMeasurementPDFTest extends \CustomPHPUnitTestCase
     {
         $pdf_tools = new FileMeasurementPDF('tests/fixtures/files/difrent-pages-sizes.pdf');
 
+        //die(print_r($pdf_tools));
+
         $this->assertEquals($pdf_tools->widthInPt(), 255.12);
         $this->assertEquals($pdf_tools->widthInPt(['page' => 2]), 340.16);
         $this->assertEquals($pdf_tools->widthInPt(['page' => 3]), 765.35);

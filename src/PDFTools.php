@@ -48,7 +48,7 @@ class PDFTools
 
     private function splitToFolderAndReturnCreatePagesCount(string $target_path)
     {
-        $split_results = shell_exec('gs -sDEVICE=pdfwrite ' .
+        $split_results = shell_exec('gs -dNOSAFER -sDEVICE=pdfwrite ' .
                                       ' -dSAFER ' . // Disables the deletefile and renamefile operators
                                       ' -o ' . $target_path . // outname.%d.pdf
                                       ' ' . $this->file_path);
@@ -94,7 +94,7 @@ class PDFTools
             $size_multiplier = 2;
         }
 
-        shell_exec('gs -sDEVICE=jpeg ' .
+        shell_exec('gs -dNOSAFER -sDEVICE=jpeg ' .
             ' -o ' . $target_path .
             ' -dFirstPage=' . $page .
             ' -dLastPage=' . $page .

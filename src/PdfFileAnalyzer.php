@@ -57,7 +57,7 @@ class PdfFileAnalyzer
     {
         $toolbin_pdf_info_path = __DIR__ . '/../lib/ghost_script/toolbin_pdf_info.ps';
 
-        $pdf_info_data = shell_exec('gs -dNODISPLAY -q -sFile="' . $this->file_path . '"' .
+        $pdf_info_data = shell_exec('gs -dNOSAFER -dNODISPLAY -q -sFile="' . $this->file_path . '"' .
             ' -dDumpMediaSizes ' . $toolbin_pdf_info_path);
 
         $gs_parser = new GhostScriptDumpMediaSizesParser($pdf_info_data);
@@ -67,7 +67,7 @@ class PdfFileAnalyzer
 
     private function pagesCount()
     {
-        $pages_count = shell_exec('gs -q -dNODISPLAY -c "(' . $this->file_path . ') (r) file runpdfbegin pdfpagecount = quit"');
+        $pages_count = shell_exec('gs -q -dNOSAFER -dNODISPLAY -c "(' . $this->file_path . ') (r) file runpdfbegin pdfpagecount = quit"');
 
         return intval($pages_count);
     }

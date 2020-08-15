@@ -11,7 +11,7 @@ class FileMeasurementPDF
 
     public function pagesCount()
     {
-        $pages_count = shell_exec('gs -q -dNODISPLAY -c "(' . $this->file_path . ') (r) file runpdfbegin pdfpagecount = quit"');
+        $pages_count = shell_exec('gs -q -dNOSAFER -dNODISPLAY -c "(' . $this->file_path . ') (r) file runpdfbegin pdfpagecount = quit"');
 
         return intval($pages_count);
     }
@@ -77,9 +77,23 @@ class FileMeasurementPDF
             throw new Exception('Not found toolbin_pdf_info.ps file (require for get pdf size)');
         }
 
-        $pdf_info_data = shell_exec('gs -dNODISPLAY -q -sFile="' . $this->file_path . '"' .
-            ' -dDumpMediaSizes ' . $toolbin_pdf_info_path);
-        $gs_parser = new GhostScriptDumpMediaSizesParser($pdf_info_data);
+
+        // Page 1 MediaBox: [0.0 0.0 153.069 153.069] BleedBox: [0.0 0.0 153.069 153.069] TrimBox: [5.66928 5.66928 147.399 147.399] ArtBox: [35.5363 42.8105 98.0332 115.828]
+        $data = '';
+        $MediaBox = shell_exec('gs -q -dNOSAFER -dNODISPLAY -sFileName="' . $this->file_path . '" -c "FileName (r) file runpdfbegin 1 1 pdfpagecount {pdfgetpage /MediaBox get {=print ( ) print} forall (\n) print} for quit"');
+        $MediaBox = explode("\n", $MediaBox);
+        $MediaBox = array_filter($MediaBox, 'strlen');
+        foreach ($MediaBox as $index => $media_box) {
+            $data .= 'Page ' . ($index+1) . ' MediaBox: [' . trim($media_box) . "]\n";
+        }
+        // BleedBox
+        // CropBox
+        // TrimBox
+        // ArtBox
+
+        // $pdf_info_data = shell_exec('gs -dNOSAFER -dNODISPLAY -q -sFile="' . $this->file_path . '"' .
+        //     ' -dDumpMediaSizes ' . $toolbin_pdf_info_path);
+        $gs_parser = new GhostScriptDumpMediaSizesParser($data);
 
         $this->pages_sizes = $gs_parser->parse();
     }
