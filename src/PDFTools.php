@@ -83,9 +83,16 @@ class PDFTools
         $dpi = $params['jpg_dpi'] ?? 300;
         $subsample_antialiasing = $params['subsample_antialiasing'] ?? true;
 
-        $measurement = new FileMeasurementPDF($this->file_path);
-        $width_in_px = $measurement->widthInPx(['page' => $page]);
-        $height_in_px = $measurement->heightInPx(['page' => $page]);
+        // We have some problems with get size by GhostScript, so we baypass it to pass values from pdfinfo
+        $width_in_px = $params['width_in_px'] ?? null;
+        $height_in_px = $params['height_in_px'] ?? null;
+
+        if (!$width_in_px and !$height_in_px) {
+            $measurement = new FileMeasurementPDF($this->file_path);
+            $width_in_px = $measurement->widthInPx(['page' => $page]);
+            $height_in_px = $measurement->heightInPx(['page' => $page]);
+        }
+
         $file_name = FilesUntils::getFileBasename($this->file_path);
 
         $size_multiplier = 1;
